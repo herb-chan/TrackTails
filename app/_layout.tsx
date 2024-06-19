@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
+import { ThemeProvider } from "./ThemeContext";
 import * as SplashScreen from "expo-splash-screen";
 
 import Index from "./Index";
@@ -13,7 +14,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
-        "Delicious-Handrawn": require("../assets/fonts/DeliciousHandrawn-Regular.ttf"),
+        "Gloria-Hallelujah": require("../assets/fonts/GloriaHallelujah-Regular.ttf"),
     });
 
     useEffect(() => {
@@ -29,12 +30,17 @@ export default function RootLayout() {
     }
 
     return (
-        <Stack.Navigator
-            initialRouteName="Index"
-            screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Index" component={Index} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        </Stack.Navigator>
+        <ThemeProvider>
+            <Stack.Navigator
+                initialRouteName="Index"
+                screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Index" component={Index} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen
+                    name="RegisterScreen"
+                    component={RegisterScreen}
+                />
+            </Stack.Navigator>
+        </ThemeProvider>
     );
 }

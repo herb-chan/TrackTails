@@ -8,6 +8,8 @@ import {
 import React, { useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "./types";
+import { Colors } from "../constants/Colors";
+import { useTheme } from "./ThemeContext";
 
 type LoginScreenNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -21,39 +23,79 @@ type Props = {
 export default function LoginScreen({ navigation }: Props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { theme } = useTheme();
+    const colors = Colors[theme];
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
+        <View
+            style={[styles.container, { backgroundColor: colors.background }]}>
+            <Text style={[styles.title, { color: colors.text }]}>Login</Text>
             <View style={styles.inputWrapper}>
                 <TextInput
                     placeholder="Email"
+                    placeholderTextColor={colors.icon}
                     value={email}
                     onChangeText={setEmail}
-                    style={styles.input}
+                    style={[
+                        styles.input,
+                        { borderColor: colors.text, color: colors.text },
+                    ]}
                 />
                 <TextInput
                     placeholder="Password"
+                    placeholderTextColor={colors.icon}
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
-                    style={styles.input}
+                    style={[
+                        styles.input,
+                        { borderColor: colors.text, color: colors.text },
+                    ]}
                 />
             </View>
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={[
+                        styles.buttonContainer,
+                        { backgroundColor: colors.accent },
+                    ]}
                     onPress={() => {
                         /* Handle login logic */
                     }}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            { color: colors.accentText },
+                        ]}>
+                        Login
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={[
+                        styles.buttonContainer,
+                        { backgroundColor: colors.accent },
+                    ]}
                     onPress={() => navigation.goBack()}>
-                    <Text style={styles.buttonText}>Back</Text>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            { color: colors.accentText },
+                        ]}>
+                        Back
+                    </Text>
                 </TouchableOpacity>
             </View>
+            <Text style={[styles.footerText, { color: colors.text }]}>
+                Don't have an account?{" "}
+                <Text
+                    style={{
+                        color: colors.accent,
+                        textDecorationLine: "underline",
+                    }}>
+                    Register now
+                </Text>{" "}
+                to start tracking your habits!
+            </Text>
         </View>
     );
 }
@@ -61,13 +103,13 @@ export default function LoginScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     title: {
         fontSize: 24,
         marginBottom: 20,
-        fontFamily: "Delicious-Handrawn",
+        fontFamily: "Gloria-Hallelujah",
     },
     inputWrapper: {
         flexDirection: "column",
@@ -76,12 +118,11 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderColor: "gray",
         borderWidth: 1,
         width: "100%",
         marginBottom: 20,
         paddingHorizontal: 10,
-        fontFamily: "Delicious-Handrawn",
+        fontFamily: "Gloria-Hallelujah",
     },
     buttonWrapper: {
         flexDirection: "column",
@@ -93,11 +134,14 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         alignItems: "center",
         borderRadius: 5,
-        backgroundColor: "black",
     },
     buttonText: {
         fontSize: 18,
-        color: "white",
-        fontFamily: "Delicious-Handrawn",
+        fontFamily: "Gloria-Hallelujah",
+    },
+    footerText: {
+        fontSize: 10,
+        marginBottom: 20,
+        fontFamily: "Gloria-Hallelujah",
     },
 });

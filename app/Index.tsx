@@ -1,7 +1,9 @@
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "./types"; // Ensure this file is created and accurate
+import { RootStackParamList } from "./types";
+import { Colors } from "../constants/Colors";
+import { useTheme } from "./ThemeContext";
 
 type IndexScreenNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -13,21 +15,59 @@ type Props = {
 };
 
 export default function Index({ navigation }: Props) {
+    const { theme, toggleTheme } = useTheme();
+    const colors = Colors[theme];
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Track Tails</Text>
+        <View
+            style={[styles.container, { backgroundColor: colors.background }]}>
+            <Text style={[styles.title, { color: colors.text }]}>
+                Track Tails
+            </Text>
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={[
+                        styles.buttonContainer,
+                        { backgroundColor: colors.accent },
+                    ]}
                     onPress={() => navigation.navigate("LoginScreen")}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            { color: colors.accentText },
+                        ]}>
+                        Login
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={[
+                        styles.buttonContainer,
+                        { backgroundColor: colors.accent },
+                    ]}
                     onPress={() => navigation.navigate("RegisterScreen")}>
-                    <Text style={styles.buttonText}>Register</Text>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            { color: colors.accentText },
+                        ]}>
+                        Register
+                    </Text>
                 </TouchableOpacity>
             </View>
+            <Text style={[styles.footerText, { color: colors.text }]}>
+                Don't have an account?{" "}
+                <Text
+                    style={{
+                        color: colors.accent,
+                        textDecorationLine: "underline",
+                    }}>
+                    Register now
+                </Text>{" "}
+                to start tracking your habits!
+            </Text>
+            <TouchableOpacity style={styles.toggle_theme} onPress={toggleTheme}>
+                <Text style={{ color: colors.accent }}>Toggle Theme</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -35,13 +75,13 @@ export default function Index({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     title: {
         fontSize: 24,
         marginBottom: 20,
-        fontFamily: "Delicious-Handrawn",
+        fontFamily: "Gloria-Hallelujah",
     },
     buttonWrapper: {
         flexDirection: "column",
@@ -53,11 +93,18 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         alignItems: "center",
         borderRadius: 5,
-        backgroundColor: "black",
     },
     buttonText: {
         fontSize: 18,
-        color: "white",
-        fontFamily: "Delicious-Handrawn",
+        fontFamily: "Gloria-Hallelujah",
+    },
+    footerText: {
+        fontSize: 10,
+        marginBottom: 20,
+        fontFamily: "Gloria-Hallelujah",
+    },
+    toggle_theme: {
+        top: 100,
+        position: "absolute",
     },
 });

@@ -9,12 +9,11 @@ import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
 
 const Stack = createStackNavigator();
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const [fontsLoaded] = useFonts({
-        "Gloria-Hallelujah": require("../assets/fonts/GloriaHallelujah-Regular.ttf"),
+        Montserrat: require("../assets/fonts/Montserrat-Regular.ttf"),
     });
 
     useEffect(() => {
